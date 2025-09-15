@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}EventPro - Gallery{% endblock %}
+{% block content %}
+
+<section class="container py-5">
+  <h2 class="text-center text-dark mb-5" data-aos="fade-up">Event Gallery</h2>
+
+  <!-- Masonry Grid -->
+  <div class="row g-3" id="gallery-grid">
+    {% for i in range(1, 10) %}
+    <div class="col-6 col-md-4 col-lg-3 gallery-item" data-aos="zoom-in" data-aos-delay="{{ loop.index * 80 }}">
+      <div class="gallery-card">
+        <img src="{{ url_for('static', filename='images/gallery' ~ i ~ '.jpg') }}" 
+             alt="Event {{ i }}" class="img-fluid gallery-img"
+             data-bs-toggle="modal" data-bs-target="#lightboxModal" 
+             data-bs-img="{{ url_for('static', filename='images/gallery' ~ i ~ '.jpg') }}" 
+             data-bs-caption="Event {{ i }}">
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Lightbox Modal -->
+<div class="modal fade" id="lightboxModal" tabindex="-1" aria-labelledby="lightboxModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-dark">
+      <div class="modal-body p-0">
+        <img id="lightboxImg" src="" class="img-fluid rounded" alt="Lightbox">
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+<!-- Add this Script to handle Lightbox Modal functionality -->
+<script>
+  // Lightbox Modal functionality
+  const galleryItems = document.querySelectorAll(".gallery-card img");
+  const lightboxModal = new bootstrap.Modal(document.getElementById("lightboxModal"));
+  const lightboxImg = document.getElementById("lightboxImg");
+
+  galleryItems.forEach(img => {
+    img.addEventListener("click", () => {
+      const imageSrc = img.getAttribute("data-bs-img");
+      const imageCaption = img.getAttribute("data-bs-caption");
+      
+      lightboxImg.src = imageSrc;  // Set the modal image source
+      document.getElementById("lightboxModalLabel").innerText = imageCaption;  // Set caption in modal
+      lightboxModal.show();
+    });
+  });
+</script>

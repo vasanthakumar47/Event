@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}EventPro - Services{% endblock %}
+{% block content %}
+
+<section class="container py-5">
+  <h2 class="text-center text-dark mb-5" data-aos="fade-up">Our Services</h2>
+  <div class="row g-4">
+    {% set services = [
+    ("Pop corn stall", "popconstall.jpg", "Serving freshly popped popcorn that adds a fun and delicious touch to any event.", "Popcorn Delights"),
+    ("Paan stall", "paan stall.jpg", "Bringing a unique and traditional experience to your event with authentic, flavorful paan.", "Authentic Tradition"),
+    ("Candy stall", "candy stall.jpg", "Sweetening your event with a delightful variety of candies that everyone will love.", "Sweet Delights"),
+    ("Confetti paper short", "pop Confetti.jpg", "Infusing excitement into your event with colorful confetti that creates unforgettable moments.", "A Burst of Color"),
+    ("Catering", "catring.jpg", "Providing exquisite catering services that satisfy both taste and elegance, tailored to your event.", "Tasty and Elegant"),
+    ("Ice cream", "ice cream.jpg", "Serving refreshing ice cream that cools off your guests with a sweet and creamy experience.", "Cool & Refreshing"),
+    ("Chocolate card", "choculate card.jpg", "Offering premium chocolate cards that make your event extra sweet and memorable.", "Sweet Statement"),
+    ("Welcome drink", "welcome drink.jpg", "Welcome your guests with refreshing and creative drinks that set the tone for the event.", "Refreshing Start"),
+    ("Welcome flux", "welcome flux.jpg", "Creating a grand and inviting atmosphere with elegant welcome setups for every guest.", "Grand Welcome"),
+    ("Printing Balloons", "ballon printing.jpg", "Enhancing your event space with customized balloon prints that add a touch of creativity and color.", "Visual Impact"),
+    ("Decoration", "decoration.jpg", "Transform your venue with elegant décor that brings life, color, and personality to any celebration.", "Creative Ambience")
+] %}
+
+
+    {% for service, img, description, overlay_text in services %}
+  <div class="col-12 col-sm-6 col-md-4" data-aos="zoom-in" data-aos-delay="{{ loop.index * 100 }}">
+    <div class="card service-card h-100 shadow-lg">
+      <div class="img-container">
+        <img src="{{ url_for('static', filename='images/' ~ img) }}" 
+             class="card-img-top" alt="{{ service }}">
+        <div class="overlay">
+          <div class="overlay-text">
+            <i class="bi bi-star-fill"></i> {{ overlay_text }}
+          </div>
+        </div>
+      </div>
+      <div class="card-body text-center">
+        <h5 class="card-title text-warning">{{ service }}</h5>
+        <p class="card-text">{{ description }}</p> <!-- Dynamic Description for Each Service -->
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+  </div>
+</section>
+
+{% endblock %}
